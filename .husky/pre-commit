@@ -1,0 +1,5 @@
+# ----------校验 语法----------
+
+npm run lint
+npm run format
+git add .
