@@ -31,8 +31,10 @@ git add .
  
 # 提交检验commit-lint
 -安装 npm install @commitlint/cli @commitlint/config-conventional --save-dev
--创建commit-msg: 
+-创建commit-msg:  echo 'npx --no -- commitlint --edit $1' > .husky/commit-msg
 
+# 检查husky是否绑定git
+ git config core.hooksPath
 # 语言
 -使用typescript，类型校验、泛型T写一次代码，支持多种类型，比如 identity<T>(value: T): T 这样的通用函数。接口与类型别名用 interface 定义对象结构，用 type 定义联合类型或交叉类型，让数据“形状”一目了然。
 
