@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# react项目
+## 创建git仓库 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 获取密钥  cat ~/.ssh/id_rsa.pub
 
-## Available Scripts
+## 镜像  
+### npm config get registry
+### npm config set registry https://registry.npmmirror.com  
 
-In the project directory, you can run:
+## react脚手架 create-Reaact-App、vite
 
-### `npm start`
+## 创建react项目(选择create-react-app 官方推荐 时间久 稳定)
+### npx create-react-app project1(项目名) (--template typescript 如果不加默认语言为js)
+### vite:  npm create vite@latest project2 -- --template react-ts(默认是vue)  (node22+)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 编码规范
+### eslint 检查语法语义，如变量未定义、变量未使用
+### prettier 检查编码风格，如单引号或双引号
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# 提交规范 husky(git hooks)
+## commit-lint限制commit格式规范
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+# 遇到的问题
+## 在create-react-app项目下安装eslint失败 npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev？
+因为creat-react-app创建项目 生成出来就是 `react‑scripts@5.0.1`（2022 年发布的版本），**已经没有新版本 CRA 了**！
+- 底层构建工具：老 **Webpack**（不是 Vite）。
+- eslint 版本锁死 v5（遇到 eslint 冲突的根源）。
+- 没有后续 6.0、7.0 版本；以后不会更新模板了。
+如果要安装eslint必须锁定版本号 npm install eslint @typescript-eslint/parser@^5.62.0 @typescript-eslint/eslint-plugin@^5.62.0 --save-dev
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 安装完5.62.0版本的eslint后，用npx eslint --init生成的配置文件名称为eslint.config.mjs而不是eslintrc.js为什么？
+package.json中 "typescript-eslint": "^8.70.0"是新版的，所以npx eslint 初始化安装出了新的配置，新配置在老的car项目中不兼容。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 安装了低版本的eslint，使用以下两个命令还是会生成新版本文件
+-$env:ESLINT_USE_FLAT_CONFIG="false"; npx eslint --init  
+-npx @eslint/create-config --eslintrc
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 安装prettier报错，npm install prettier eslint-config-prettier eslint-plugin-prettier --save-dev
+--package.json里出现@eslint/js 改依赖在老项目不应该出现，flat-eslint文件才会用到，卸载后重新安装prettier。
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## commit-lint在husky中校验不执行问题？
+--不手动创建commit-msg文件，文件一定是LF换行，husky9中文件开头加#!/usr/bin/env sh
