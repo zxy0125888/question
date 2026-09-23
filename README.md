@@ -12,6 +12,7 @@
 ## eslint
 -开发环境安装插件命令： npm install eslint @typescript-eslint/parser@^5.62.0 @typescript-eslint/eslint-plugin@^5.62.0 --save-dev
 -配置文件 npx eslint --init (无效 需要手动配置)、安装eslint 插件。
+-需手动添加.eslintrc.cjs和.eslintignore配置文件
 
 ## prettier
 -安装命令 npm install prettier eslint-config-prettier eslint-plugin-prettier --save-dev
